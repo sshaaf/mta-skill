@@ -1,6 +1,6 @@
 {
   "name": "@sshaaf/mta-skill",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "MTA skills for AI agents - Analyze codebases, generate custom migration rules, and orchestrate end-to-end migrations using Konveyor/MTA tools",
   "main": "installer.js",
   "bin": "./installer.js",
