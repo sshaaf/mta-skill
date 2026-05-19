@@ -1,0 +1,23 @@
+{
+  "skill_name": "mta-migration",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "I need to migrate this Spring Boot 2.7 application to Spring Boot 3.2. The app uses javax.validation, Spring Security with WebSecurityConfigurerAdapter, and javax.persistence. Can you help me plan and execute the migration?",
+      "expected_output": "Runs MTA analysis, identifies javax→jakarta migrations and Spring Security deprecations, generates migration plan with phases (dependencies, code, config, tests), creates git branch, and executes migration with validation at each step",
+      "files": ["sample-springboot-27-app"]
+    },
+    {
+      "id": 2,
+      "prompt": "Migrate this WebLogic application to Quarkus. It uses WebLogic JMS (weblogic.jms.*) and has WebLogic-specific deployment descriptors. I want a complete migration plan including custom rules for our internal APIs in com.acme.legacy.*",
+      "expected_output": "Analyzes WebLogic app, generates custom rules for WebLogic JMS and internal APIs using mta-rules-gen, saves rules to ruleset/, creates comprehensive plan addressing vendor lock-in, presents for approval",
+      "files": ["sample-weblogic-app"]
+    },
+    {
+      "id": 3,
+      "prompt": "Help me upgrade this Java application from Java 8 to Java 17 and migrate from Java EE 7 to Jakarta EE 10. Execute the full migration once I approve the plan.",
+      "expected_output": "Runs analysis for jakarta-ee target, creates migration plan for namespace changes (javax→jakarta), Java version updates, creates migration branch, executes changes, validates build and tests",
+      "files": ["sample-javaee-app"]
+    }
+  ]
+}

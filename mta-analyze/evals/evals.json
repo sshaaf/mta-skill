@@ -1,0 +1,26 @@
+{
+  "skill_name": "mta-analyze",
+  "evals": [
+    {
+      "id": 1,
+      "eval_name": "eap8-migration-basic",
+      "prompt": "hey can you run an analysis on this codebase? we're planning to migrate from our current JBoss EAP 6 setup to EAP 8 and my manager wants to know what kind of effort we're looking at. the app is a pretty standard enterprise java app, nothing too fancy but it's been running for like 5 years so who knows what legacy stuff is in there. just use the default rules for now, we can look at custom rules later if needed.",
+      "expected_output": "Should check for kantra installation, run kantra analyze with --target=eap8, present a summary of findings including issue counts by severity, estimated effort in story points, and provide path to the HTML report for detailed review.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "eval_name": "quarkus-with-custom-rules",
+      "prompt": "I need to do a migration assessment for moving our microservices to Quarkus. We've got some custom migration rules that the platform team wrote - they should be in the ./migration-rules directory. Can you run the analysis and include those custom rules? We want to make sure we catch all the platform-specific stuff that the default rules might miss.",
+      "expected_output": "Should verify kantra is installed, auto-detect custom rules in ./migration-rules, ask user if they want to include them (or just include them based on the prompt), run kantra analyze with --target=quarkus --rules=./migration-rules, and present summary with both default and custom rule findings.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "eval_name": "cloud-readiness-assessment",
+      "prompt": "We're trying to containerize this application and move it to kubernetes. Can you do a cloud readiness check? I'm particularly worried about things like local file storage, in-memory sessions, and any other stuff that won't work well in containers. This is in /Users/dev/projects/legacy-app but I've already cd'd into that directory so you should be able to just analyze from here.",
+      "expected_output": "Should check kantra installation, verify input path is current directory, run kantra analyze with --target=cloud-readiness, and provide a summary highlighting cloud-specific concerns like stateful resources, local filesystem usage, session management issues, etc., along with path to HTML report.",
+      "files": []
+    }
+  ]
+}

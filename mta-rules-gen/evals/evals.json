@@ -1,0 +1,26 @@
+{
+  "skill_name": "mta-rules-gen",
+  "evals": [
+    {
+      "id": 1,
+      "eval_name": "spring-boot-2-to-3-rules",
+      "prompt": "hey, we're planning to upgrade our services from Spring Boot 2.7 to Spring Boot 3.2 and I need to create some custom rules to catch issues specific to our codebase. Can you generate migration rules that will detect deprecated Spring Security configurations and the old javax.validation annotations that need to change to jakarta.validation? We want these flagged as mandatory since they'll break the build.",
+      "expected_output": "Should use Scribe MCP server to generate custom MTA rules detecting: 1) Spring Security deprecated configs, 2) javax.validation to jakarta.validation migrations. Rules should be saved as YAML file in migration-rules/ directory, include proper effort estimates, be marked as mandatory severity, and include usage instructions for kantra --rules flag.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "eval_name": "weblogic-proprietary-api-detection",
+      "prompt": "We're moving off WebLogic to Quarkus and need rules to identify all the WebLogic-specific stuff in our code - mostly their JMS implementation (weblogic.jms.*) and some deployment descriptor stuff. Create rules that flag these with high effort estimates because replacing vendor-specific APIs is gonna be a pain. Save them somewhere we can reuse for multiple services.",
+      "expected_output": "Should generate MTA rules for WebLogic proprietary APIs including weblogic.jms.* packages and deployment descriptors. Rules should have high effort estimates (5-8 points), be saved to a reusable location like migration-rules/, include transformation hints for standard Jakarta EE equivalents, and provide clear usage instructions.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "eval_name": "custom-internal-api-deprecation",
+      "prompt": "our platform team deprecated a bunch of internal APIs last quarter (everything under com.mycompany.platform.v1.*) and the new stuff is in com.mycompany.platform.v2.*. i need migration rules that catch any usage of the old v1 packages and tell developers to use v2 instead. this should be optional for now since we're in a transition period, not forcing everyone to migrate immediately.",
+      "expected_output": "Should generate custom rules detecting com.mycompany.platform.v1.* usage and suggesting v2 equivalents. Rules should be marked as 'optional' severity (not mandatory), include helpful messages about v1 to v2 migration, have reasonable effort estimates, and be saved as a YAML file with usage instructions.",
+      "files": []
+    }
+  ]
+}
