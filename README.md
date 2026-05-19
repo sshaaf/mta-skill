@@ -9,6 +9,27 @@ Three complementary skills for Java application migration powered by Konveyor/MT
 ## Workflow
 
 ```mermaid
+graph LR
+    Start([Your App]) --> Analyze[📊 /mta-analyze<br/>Analyze & assess]
+    Start --> Rules[⚙️ /mta-rules-gen<br/>Create custom rules]
+    Start --> Migrate[🚀 /mta-migration<br/>Plan & execute]
+    
+    Analyze --> Report[HTML Report]
+    Rules --> Ruleset[YAML Rules]
+    Migrate --> Complete[Migrated App]
+    
+    style Analyze fill:#e1f5ff,stroke:#0288d1,stroke-width:2px
+    style Rules fill:#fff4e1,stroke:#f57c00,stroke-width:2px
+    style Migrate fill:#e1ffe1,stroke:#388e3c,stroke-width:2px
+    style Report fill:#f5f5f5
+    style Ruleset fill:#f5f5f5
+    style Complete fill:#c8e6c9
+```
+
+<details>
+<summary><b>📖 Detailed Workflow (click to expand)</b></summary>
+
+```mermaid
 graph TB
     Start([User Request]) --> Decision{What do you need?}
     
@@ -58,20 +79,13 @@ graph TB
     style End4 fill:#c8e6c9
 ```
 
+</details>
+
 e.g Prompt
 ```
 /mta-migration migrate this application to eap 8
 ``` 
-<table>
-  <tr>
-    <td width="33%">
-      <a href=".github/assets/images/01-screenshot.jpg">
-        <img src=".github/assets/images/01-screenshot.jpg" alt="example end result" width="100%"/>
-      </a>
-      <sub>Example end result</sub>
-    </td>
-   </tr>
-</table>
+![Output](.github/assets/images/01-screenshot.jpg)
 
 
 
