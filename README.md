@@ -58,6 +58,23 @@ graph TB
     style End4 fill:#c8e6c9
 ```
 
+e.g Prompt
+```
+/mta-migration migrate this application to eap 8
+``` 
+<table>
+  <tr>
+    <td width="33%">
+      <a href=".github/assets/images/01-screenshot.jpg">
+        <img src=".github/assets/images/01-screenshot.jpg" alt="example end result" width="100%"/>
+      </a>
+      <sub>Example end result</sub>
+    </td>
+   </tr>
+</table>
+
+
+
 ## Installation
 
 **Local install** (installs to `.claude/skills/` in current directory):
