@@ -2,7 +2,7 @@
 
 Three complementary skills for Java application migration powered by Konveyor/MTA:
 
-1. **mta-analyze** - Analyze codebases for migration readiness using kantra CLI
+1. **mta-analyze** - Analyze codebases for migration readiness using MTA CLI (kantra or mta-cli)
 2. **mta-rules-gen** - Generate custom migration rules using the Scribe MCP server
 3. **mta-migration** - Orchestrate end-to-end application migrations with planning and execution
 
@@ -16,7 +16,7 @@ graph TB
     Decision -->|Generate rules only| RulesGen[/mta-rules-gen/]
     Decision -->|Full migration| Migration[/mta-migration/]
     
-    Analyze --> Kantra[Run kantra CLI]
+    Analyze --> Kantra[Run MTA CLI<br/>kantra or mta-cli]
     Kantra --> CustomRules{Custom rules<br/>exist?}
     CustomRules -->|Yes| AnalyzeWithRules[Analyze with<br/>custom rules]
     CustomRules -->|No| AnalyzeDefault[Analyze with<br/>default rules]
@@ -69,6 +69,15 @@ npx @sshaaf/mta-skill
 ```bash
 npx @sshaaf/mta-skill -g
 ```
+
+** Development** 
+during development you can run installer.js e.g. /home/user/mta-skill/installer.js. This should install the skill in local .claude directory.
+
+```
+cd current-project
+/home/user/mta-skill/installer.js
+```
+
 
 The skill will be available to any AI agent that supports the `.claude/skills/` directory structure.
 
@@ -234,21 +243,96 @@ Agent: Creating migration branch: migration/springboot27-to-32-20260519
 - **Java codebase** to work with
 
 ### MTA Analysis (`mta-analyze`)
-- **Kantra CLI** - Install from https://github.com/konveyor/kantra/releases
+- **MTA CLI** (kantra or mta-cli) - See installation instructions below
 
 ### Rules Generation (`mta-rules-gen`)
 - **Scribe MCP Server** - Install from https://github.com/sshaaf/scribe
 - Server must be running at http://localhost:8080/mcp/sse
 
 ### Migration Orchestration (`mta-migration`)
-- **Kantra CLI** - Install from https://github.com/konveyor/kantra/releases
+- **MTA CLI** (kantra or mta-cli) - See installation instructions below
 - **Scribe MCP Server** (for custom rule generation) - https://github.com/sshaaf/scribe
 - **Git repository** - Codebase must be in a git repo for safe branching
+
+## Installing MTA CLI
+
+The skills require the MTA CLI to be installed. You can use either `kantra` or `mta-cli`.
+
+### Option 1: Installing mta-cli (Recommended for ~/.kantra setup)
+
+1. Download the latest release from https://github.com/konveyor/kantra/releases
+2. Extract the downloaded archive:
+   ```bash
+   tar -xzf kantra-<version>-<os>-<arch>.tar.gz
+   ```
+3. Rename the extracted directory to `mta-cli`:
+   ```bash
+   mv kantra-<version> mta-cli
+   ```
+4. Create the `.kantra` directory in your home folder:
+   ```bash
+   mkdir -p ~/.kantra
+   ```
+5. Move the entire `mta-cli` directory into `~/.kantra/`:
+   ```bash
+   mv mta-cli ~/.kantra/
+   ```
+6. Add to your PATH by adding this line to `~/.bashrc`, `~/.zshrc`, or `~/.bash_profile`:
+   ```bash
+   export PATH=$PATH:~/.kantra/mta-cli/bin
+   ```
+7. Reload your shell configuration:
+   ```bash
+   source ~/.bashrc  # or ~/.zshrc
+   ```
+8. Verify installation:
+   ```bash
+   mta-cli version
+   ```
+
+### Option 2: Installing kantra (Simpler PATH setup)
+
+1. Download the latest release from https://github.com/konveyor/kantra/releases
+2. Extract the archive
+3. Add the `kantra` executable to a directory in your PATH (e.g., `/usr/local/bin` or `~/bin`)
+4. Verify installation:
+   ```bash
+   kantra version
+   ```
+
+### Testing Your Installation
+
+Once installed, test with a simple analysis. **Important**: You must run the command from the **parent directory** of your application, not from inside the application directory.
+
+```bash
+# Navigate to the parent directory of your application
+cd /path/to/parent-directory
+
+# Using mta-cli (analyze the app-directory subdirectory)
+mta-cli analyze --output output --input <app-directory-name> --target quarkus --overwrite
+
+# Using kantra (analyze the app-directory subdirectory)
+kantra analyze --output output --input <app-directory-name> --target quarkus --overwrite
+```
+
+**Example**:
+```bash
+# If your app is at: /home/user/projects/my-app
+# Navigate to:      /home/user/projects
+cd /home/user/projects
+
+# Then run:
+mta-cli analyze --output output --input my-app --target quarkus --overwrite
+```
+
+**Note**: The `--input` cannot be `.` (current directory). You'll get an error: `input path cannot be the current directory`
+
+The analysis report will be generated at `output/static-report/index.html`.
 
 ## What It Does
 
 ### MTA Analysis Skill
-Automates the complete kantra analysis workflow:
+Automates the complete MTA CLI (kantra/mta-cli) analysis workflow:
 - Detects migration targets from natural language requests
 - Auto-discovers and offers to use custom rule sets
 - Creates timestamped output directories for tracking progress

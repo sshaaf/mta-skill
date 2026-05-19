@@ -25,7 +25,9 @@ Use this skill when the user wants to:
 - **MTA Skills Available**: `mta-analyze` and `mta-rules-gen` must be installed
 - **Scribe MCP Server**: Must be running at `http://localhost:8080/mcp/sse` for rule generation
 - **Git Repository**: Codebase must be in a git repository (for safe branching)
-- **kantra CLI**: Must be installed and available in PATH
+- **MTA CLI**: Must be installed and available in PATH as either `kantra` or `mta-cli`
+  - For mta-cli setup: Download from https://github.com/konveyor/kantra/releases, rename to `mta-cli`, place in `~/.kantra/mta-cli`, and add `~/.kantra/mta-cli/bin` to PATH
+  - For kantra setup: Download and add executable to any directory in your PATH
 
 ## Migration Workflow
 
@@ -33,6 +35,8 @@ Use this skill when the user wants to:
 
 1. **Invoke MTA Analysis**
    - Use the `/mta-analyze` skill to analyze the codebase
+   - **Important**: The MTA CLI must run from the parent directory, not from inside the application
+   - The skill will automatically handle navigating to the parent directory and using the correct `--input` path
    - Ensure you pass the correct target platform (e.g., `--target=quarkus`, `--target=springboot3`)
    - Wait for analysis to complete and HTML report to be generated
 
@@ -154,7 +158,7 @@ Generate a comprehensive migration plan document with these sections:
 ## Appendix: Analysis Details
 - Analysis report: `./analysis-output/static-report/index.html`
 - Custom rules: `./ruleset/`
-- MTA command used: `kantra analyze ...`
+- MTA command used: `kantra analyze ...` or `mta-cli analyze ...`
 ```
 
 ### Phase 4: Validation Planning
@@ -278,7 +282,7 @@ Based on the codebase, include appropriate validation steps:
 ## Error Handling
 
 ### Analysis Fails
-- Check kantra CLI is installed
+- Check MTA CLI is installed (kantra or mta-cli)
 - Verify input directory exists
 - Check Scribe MCP server is running (for custom rules)
 - Report error to user with suggestions
